@@ -1,5 +1,7 @@
-# pico-pid-lcd
+# Pico PID with LCD user interface
 Make a Raspberry Pi Pico into a graphical PID controller
+
+![Image of completed device in action](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/IMG_9144.png "PID GUI in action")
 
 ## Requirements
 
@@ -15,4 +17,8 @@ Make a Raspberry Pi Pico into a graphical PID controller
 - Resistive heating elements (e.g., an [electric heating pad](https://thepihut.com/products/electric-heating-pad-10cm-x-5cm))
 - Female DC 2.1mm jack for power adapter (depending on power supply wiring)
 
-## Setup
+## Hardware setup
+
+## Software setup
+
+## Using the device
