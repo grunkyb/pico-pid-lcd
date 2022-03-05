@@ -19,6 +19,13 @@ Make a Raspberry Pi Pico into a graphical PID controller
 
 ## Hardware setup
 
+### Pins taken by LCD display and buttons
+
+
 ## Software setup
+
+### Loading on to the Raspberry Pi Pico
+
+### Settings file
 
 ## Using the device
