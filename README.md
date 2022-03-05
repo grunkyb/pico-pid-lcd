@@ -43,4 +43,30 @@ Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython
 
 ### Settings file
 
+Settings are stored in JSON format in `settings.json`.
+
+| Key | Meaning | Typical value |
+| --- | --- | --- |
+| setpoint_C | Setpoint temperature in °C | 37.0
+| Kp | xxx | 49248 |
+| smoothingalpha | xxx | 0.7 |
+| sampletime_s | xxx | 1.0 |
+| heaterpin | GPIO number controlling the heater output by PWM | 0 |
+| displaysleep_s | xxx | 30 |
+| outmin | xxx | 0 |
+| outmax | xxx | 65535 |
+| tempbar_frac | xxx | 0.6 |
+| i2cbus | xxx | 0 |
+| Kd | xxx | 963413 |
+| Ki | xxx | 629.4 |
+| scl_pin | xxx | 5 |
+| sda_pin | xxx | 4 |
+| heaterfreq_Hz| xxx | 16384 |
+| displayupdate_Hz | xxx | 5 |
+| lookback_points | xxx | 60 |
+| tempoffset_C | xxx | 0 |
+| pressureoffset_hPa | xxx | 0 |
+| rhoffset_pct | xxx | 0 |
+| tuningrule | xxx | "ziegler-nichols" |
+
 ## Using the device
