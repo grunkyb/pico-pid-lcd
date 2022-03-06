@@ -43,7 +43,13 @@ Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython
 
 ## Software setup
 
-### Loading on to the Raspberry Pi Pico
+### Installing Micropython on the Raspberry Pi Pico
+
+The Raspberry Pi Foundation offer a [tutorial on installing MicroPython on a Pico](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/1).
+
+### Files to control the PID and LCD
+
+The files in the code folder should be copied to the Pico. This can be done using Thonny.
 
 ### Settings file
 
