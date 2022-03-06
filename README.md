@@ -19,6 +19,8 @@ Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython
 
 ## Hardware setup
 
+
+
 ### Pins taken by LCD display and buttons
 | GP# | Pin | Function |
 | :---: | :---: | :--- |
@@ -36,6 +38,8 @@ Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython
 | 18  | 24 | Joystick down
 | 20  | 25 | Joystick right
 | VSYS | 39 | 1.8 to 5.5V power supply
+
+[![Pico pinout](https://projects-static.raspberrypi.org/projects/getting-started-with-the-pico/991cb74a9ee566023ff2811e49fe0447d80966db/en/images/Pico-R3-Pinout.png)](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/1)
 
 ## Software setup
 
