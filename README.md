@@ -1,7 +1,7 @@
 # Pico PID with LCD user interface
 Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython.
 
-![Image of completed device in action](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/IMG_9144.png "PID GUI in action")
+![Image of completed device in action](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_heater_on.png "PID GUI in action")
 
 ## Requirements
 
