@@ -1,5 +1,6 @@
 # Pico PID with LCD user interface
-Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython.
+
+How to make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython.
 
 ![Image of completed device in action](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_heater_on.png "PID GUI in action")
 
@@ -8,7 +9,7 @@ Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython
 ### For the controller
 - Raspberry Pi Pico with male headers
 - [Pico 0.96" LCD with buttons](https://www.waveshare.com/wiki/Pico-LCD-0.96)
-- BME280 sensor with I2C connection
+- BME280 sensor breakout with I2C connection
 - Jumper wires
 
 ### For the heater
@@ -21,15 +22,28 @@ Make a Raspberry Pi Pico into a graphical PID controller. Runs using MicroPython
 
 ### Wiring the heater circuit
 
-PWM pin
+From left to right in the image below (heat sink at the back), the pins are gate, drain, and source.
 
-Transistor setup
+[![TO-220 front](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/TO-220_Front_Coloured.svg/550px-TO-220_Front_Coloured.svg.png)](https://en.wikipedia.org/wiki/TO-220)
 
-Power supply connection
+- Connect the gate to the PWM output (default: GP0, pin 1).
+- Connect the source to one of the Pico's ground pins.
+- Connect the drain to one of the resistive heater's connectors.
+- Connect the positive (red) line from the power supply to the other connector on the resistive heater
+- Connect the negative (black) line from the power supply to one of the Pico's ground pins
 
 ### Connections to BME280
 
+If not already in place, headers need to be soldered to the BME280 breakout, then connecgted with jumper wires. [Adafruit](https://www.adafruit.com/product/2652) and others sell a BME280 breakout with [STEMMA QT](https://learn.adafruit.com/introducing-adafruit-stemma-qt/what-is-stemma-qt) connections.
+
+![BME280 with jumpers](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/BME280_with_jumpers.png)
+
+The Pico pinout is given in the image below.
+
+[![Pico pinout](https://projects-static.raspberrypi.org/projects/getting-started-with-the-pico/991cb74a9ee566023ff2811e49fe0447d80966db/en/images/Pico-R3-Pinout.png)](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/1)
+
 The default pins for the Pico's I2C bus 0 are taken by the LCD display's SPI bus. The connections in the settings file use I2C bus 0 with GP4 (header pin 6) for data (SDA) and GP5 (header pin 7) for clock (SCL). If the default pin for controlling the heater level is not used the following combinations are available.
+
 | SDA GP# (Pin #) | SCL GP# (Pin #) | I2C bus |
 | :---: | :---: | :---: |
 | 0 (1) | 1 (2) | 0 |
@@ -56,11 +70,9 @@ VIN on the BME280 should be connected to 3V3 out (header pin 36). GND should be 
 | 20  | 25 | Joystick right |
 | VSYS | 39 | 1.8 to 5.5V power supply |
 
-[![Pico pinout](https://projects-static.raspberrypi.org/projects/getting-started-with-the-pico/991cb74a9ee566023ff2811e49fe0447d80966db/en/images/Pico-R3-Pinout.png)](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/1)
-
 ## Software setup
 
-### Installing Micropython on the Raspberry Pi Pico
+### Installing MicroPython on the Raspberry Pi Pico
 
 The Raspberry Pi Foundation offer a [tutorial on installing MicroPython on a Pico](https://projects.raspberrypi.org/en/projects/getting-started-with-the-pico/1).
 
@@ -68,7 +80,7 @@ The Raspberry Pi Foundation offer a [tutorial on installing MicroPython on a Pic
 
 The files in the code folder should be copied to the Pico. This can be done using Thonny.
 
-* If there is no menus at the top to the Thonny window, switch to regular mode and restart Thonny.
+* If there are no menus at the top to the Thonny window, switch to regular mode using the hyperlink in the top-right of the window and restart Thonny.
 * Select View | Files
 * Right click on the files to transfer and select Upload to /.
 
@@ -104,8 +116,16 @@ Settings are stored in JSON format in `settings.json`.
 
 ## Using the device
 
-Start stop
+### Starting and stopping
 
-Change temperature setpoint
+Button A
 
-Autotune
+### Change the temperature setpoint
+
+Joystick
+
+### Autotune
+
+Button B
+
+
