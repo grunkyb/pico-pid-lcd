@@ -4,6 +4,24 @@ How to make a Raspberry Pi Pico into a graphical PID controller. Runs using Micr
 
 ![Image of completed device in action](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_heater_on.png "PID GUI in action")
 
+# Table of contents
+
+* [Requirements](#requirements)
+  * [Controller](#for-the-controller)
+  * [Heater](#for-the-heater)
+* [Hardware setup](#hardware-setup)
+  * [Wiring the heater circuit](#wiring-the-heater-circuit)
+  * [Connections to BME280](#connections-to-BME280)
+  * [Pins taken by LCD display and buttons](#pins-taken-by-lcd-display-and-buttons)
+* [Software setup](#software-setup)
+  * [Installing MicroPython on the Raspberry Pi Pico](#installing-micropython-on-the-raspberry-pi-pico)
+  * [Files to control the PID and LCD](#files-to-control-the-pid-and-lcd)
+  * [Settings file](#settings-file)
+* [Using the device](#using-the-device)
+  * [Starting and stopping](#starting-and-stopping)
+  * [Change the temperature setpoint](#change-the-temperature-setpoint)
+  * [Autotune](#autotune)
+
 ## Requirements
 
 ### For the controller
@@ -53,6 +71,7 @@ The default pins for the Pico's I2C bus 0 are taken by the LCD display's SPI bus
 VIN on the BME280 should be connected to 3V3 out (header pin 36). GND should be connected to any of the free ground connections on the Pico.
 
 ### Pins taken by LCD display and buttons
+
 | GP# | Pin | Function |
 | :---: | :---: | :--- |
 |  2  |  4 | Joystick up |
