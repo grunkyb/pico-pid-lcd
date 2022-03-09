@@ -220,10 +220,11 @@ def mainloop(settings, lcd, heater, bme):
               or KEY_CTRL.value()==0 or KEY_A.value()==0
               or KEY_B.value()==0 ): # key down
             keyflag=settings["displayupdate_Hz"]
+            # reset backlight
+            action = settings["displaysleep_s"] * settings["displayupdate_Hz"] - 1
             if not backlight:
                 lcd.backlight(1000)
                 backlight = True
-                action = settings["displaysleep_s"] * settings["displayupdate_Hz"] - 1
             elif KEY_A.value()==0 and not autotune:
                 running = not running
             elif ((KEY_UP.value()==0 or KEY_RIGHT.value()==0) and
@@ -247,8 +248,9 @@ def mainloop(settings, lcd, heater, bme):
                                        out_step=int(settings["outmax"]),
                                        sampletime=settings["sampletime_s"],
                                        lookback=settings["lookback_points"],
-                                       out_min=int(settings["outmin"]),
-                                       out_max=int(settings["outmax"]),
+                                       out_min=int(settings["outmin_tune"]),
+                                       out_max=int(settings["outmax_tune"]),
+                                       noiseband=settings(["noiseband_C"]),
                                        time=lambda:runtime)
         while ticks_diff(nextloop,ticks_ms()) > 0:
             sleep_ms(5)
