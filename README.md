@@ -21,11 +21,12 @@ How to make a Raspberry Pi Pico into a graphical PID controller. Runs using Micr
   * [Starting and stopping](#starting-and-stopping)
   * [Change the temperature setpoint](#change-the-temperature-setpoint)
   * [Autotune](#autotune)
+* [Acknowledgements](#acknowledgements)
 
 ## Requirements
 
 ### For the controller
-- Raspberry Pi Pico with male headers
+- Raspberry Pi Pico with male headers and power supply
 - [Pico 0.96" LCD with buttons](https://www.waveshare.com/wiki/Pico-LCD-0.96)
 - BME280 sensor breakout with I2C connection
 - Jumper wires
@@ -33,8 +34,9 @@ How to make a Raspberry Pi Pico into a graphical PID controller. Runs using Micr
 ### For the heater
 - N-channel power MOSFET with logic-level gating (e.g., [IRLB8721](https://thepihut.com/products/n-channel-power-mosfet))
 - DC power supply
+  - For lower-power heating (< 10 W) a [Micro USB 2-way Y-splitter cable](https://thepihut.com/products/micro-b-usb-2-way-y-splitter-cable) can be used from a [Pi 3 USB power supply](https://thepihut.com/products/official-raspberry-pi-universal-power-supply).
+  - For higher-power heating, a separate [12V power supply](https://cpc.farnell.com/pro-elec/pell0002/ac-dc-psu-12v-5a-iec/dp/PW04353) is recommended along with a [female DC 2.1mm jack](https://thepihut.com/products/female-dc-power-adapter-2-1mm-jack-to-screw-terminal-block)
 - Resistive heating elements (e.g., an [electric heating pad](https://thepihut.com/products/electric-heating-pad-10cm-x-5cm))
-- Female DC 2.1mm jack for power adapter (depending on power supply wiring)
 
 ## Hardware setup
 
@@ -69,6 +71,10 @@ The default pins for the Pico's I2C bus 0 are taken by the LCD display's SPI bus
 | 26 (31) | 27 (32) | 1 |
 
 VIN on the BME280 should be connected to 3V3 out (header pin 36). GND should be connected to any of the free ground connections on the Pico.
+
+If the BME280 is not connected, an error message will display on the LCD.
+
+![BME280 error screen](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_BME_disconnected.png)
 
 ### Pins taken by LCD display and buttons
 
@@ -118,6 +124,8 @@ Settings are stored in JSON format in `settings.json`.
 | `displaysleep_s` | seconds without action before LCD backlight dims | `30` |
 | `outmin` | minimum PWM output for heater control | `0` |
 | `outmax` | maximum PWM output for heater control | `65535` |
+| `outmin_tune` | minimum PWM output for heater control during tuning | `0` |
+| `outmax_tune` | maximum PWM output for heater control during tuning | `65535` |
 | `tempbar_frac` | fraction of screen width where vertical setpoint bar appears on temperature line | `0.6` |
 | `i2cbus` | I2C bus used to connect to BME280 | `0` |
 | `sda_pin` | I2C data GPIO | `4` |
@@ -132,19 +140,32 @@ Settings are stored in JSON format in `settings.json`.
 | `pressureoffset_hPa` | number of hPa to add to reading from BME280 | `0.0` |
 | `rhoffset_pct` | number of percentage points to add to reading from BME280 | `0.0` |
 | `tuningrule` | set of empirical parameters to convert amplitude and period of tuning into PID gain parameters | `"ziegler-nichols"` |
+| `noiseband_C` | number of degrees Celsius overshoot before heater state changes in autotune | 0.5 |
 
 ## Using the device
 
 ### Starting and stopping
 
-Button A
+Button A toggles whether the heater will turn on to reach the setpoint temperature. Run [autotune](#autotune) before the first use.
 
 ### Change the temperature setpoint
 
-Joystick
+Use the joystick to change the setpoint temperature. Pressing up or right raises the setpoint temperature, pressing down or left lowers it.
+![Heater on](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_heater_on.png)
+![Heater off](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_before_start_with_bar.png)
 
 ### Autotune
 
-Button B
+Button B engages the PID tuning routine. The heater will turn on (default is full power) until the setpoint is passed by a specified amount (default is 0.5 °C). When the temperature drops by a specified amount below the setpoint, the heater switches on again. The process is repeated until the period of oscillation and amount of gain can be calculated. These values are converted into the three PID parameters using the `tuningrule` setting (default is [Ziegler-Nichols](https://en.wikipedia.org/wiki/Ziegler%E2%80%93Nichols_method)).
 
+The amount of overshoot is set with `noiseband_C`. The minimum and maximum heater outputs for the [bang–bang](https://en.wikipedia.org/wiki/Bang%E2%80%93bang_control) control are set with `outmin_tune` and `outmax_tune`.
 
+Pressing button B again while tuning stops the tuning routine and the heater and preserves the original PID settings.
+
+![Autotune engaged](https://github.com/grunkyb/pico-pid-lcd/blob/main/images/LCD_display_autotune.png)
+
+## Acknowledgements
+
+* LCD driver code adapted from [Waveshare's model code](https://www.waveshare.com/wiki/Pico-LCD-0.96 "Waveshare driver for Pico 0.96 LCD with buttons and joystick")
+* Autotune and PID code adapted from [t0mpr1c3](https://github.com/t0mpr1c3)'s fork of an [Arduino PID autotune library](https://github.com/t0mpr1c3/Arduino-PID-AutoTune-Library)
+* [BME280 driver](https://github.com/robert-hh/BME280/blob/master/bme280_float.py) used without modification, based on original created by Kevin Townsend
