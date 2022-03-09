@@ -26,7 +26,7 @@ How to make a Raspberry Pi Pico into a graphical PID controller. Runs using Micr
 ## Requirements
 
 ### For the controller
-- Raspberry Pi Pico with male headers and power supply
+- Raspberry Pi Pico with male headers (ideally short) and power supply
 - [Pico 0.96" LCD with buttons](https://www.waveshare.com/wiki/Pico-LCD-0.96)
 - BME280 sensor breakout with I2C connection
 - Jumper wires
