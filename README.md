@@ -109,7 +109,7 @@ The files in the code folder should be copied to the Pico. This can be done usin
 * Select View | Files
 * Right click on the files to transfer and select Upload to /.
 
-Rename `pico-pid.py` to `main.py` for the program to launch at startup.
+Rename `pico-pid.py` to `main.py` for the [program to run when the device is plugged in](https://forums.raspberrypi.com/viewtopic.php?t=301927#p1811516).
 
 ### Settings file
 
@@ -117,30 +117,30 @@ Settings are stored in JSON format in `settings.json`.
 
 | Key | Meaning | Typical value |
 | --- | --- | --- |
-| `setpoint_C` | setpoint temperature in °C | `37.0` |
-| `smoothingalpha` | [Exponential smoothing factor](https://en.wikipedia.org/wiki/Exponential_smoothing) 0 < &alpha; ≤ 1 | `0.7` |
-| `sampletime_s` | seconds between BME280 measurements | `1.0` |
-| `heaterpin` | GPIO number controlling the heater output by PWM | `0` |
 | `displaysleep_s` | seconds without action before LCD backlight dims | `30` |
-| `outmin` | minimum PWM output for heater control | `0` |
+| `displayupdate_Hz` | number of times per second the controls are checked | `5` |
+| `heaterfreq_Hz` | PWM frequency in Hz | `16384` |
+| `heaterpin` | GPIO number controlling the heater output by PWM | `0` |
+| `i2cbus` | I2C bus used to connect to BME280 | `0` |
+| `Kd` | derivative gain parameter in [parallel-form PID](https://en.wikipedia.org/wiki/PID_controller#Alternative_nomenclature_and_forms) equation (=*K*<sub>p</sub> *T*<sub>d</sub>) | `963413` |
+| `Ki` | integral gain parameter in [parallel-form PID](https://en.wikipedia.org/wiki/PID_controller#Alternative_nomenclature_and_forms) equation (=*K*<sub>p</sub>/*T*<sub>i</sub>) | `629.4` |
+| `Kp` | proportional gain parameter in [parallel-form PID](https://en.wikipedia.org/wiki/PID_controller#Alternative_nomenclature_and_forms) equation | `49248` |
+| `lookback_points` | number of measurements points used in autotune to find peaks or troughs | `60` |
+| `noiseband_C` | number of degrees Celsius overshoot before heater state changes in autotune | 0.5 |
+| `outmax_tune` | maximum PWM output for heater control during tuning | `65535` |
 | `outmax` | maximum PWM output for heater control | `65535` |
 | `outmin_tune` | minimum PWM output for heater control during tuning | `0` |
-| `outmax_tune` | maximum PWM output for heater control during tuning | `65535` |
-| `tempbar_frac` | fraction of screen width where vertical setpoint bar appears on temperature line | `0.6` |
-| `i2cbus` | I2C bus used to connect to BME280 | `0` |
-| `sda_pin` | I2C data GPIO | `4` |
-| `scl_pin` | I2C clock GPIO | `5` |
-| `Kp` | proportional gain parameter in [parallel-form PID](https://en.wikipedia.org/wiki/PID_controller#Alternative_nomenclature_and_forms) equation | `49248` |
-| `Ki` | integral gain parameter in [parallel-form PID](https://en.wikipedia.org/wiki/PID_controller#Alternative_nomenclature_and_forms) equation (=*K*<sub>p</sub>/*T*<sub>i</sub>) | `629.4` |
-| `Kd` | derivative gain parameter in [parallel-form PID](https://en.wikipedia.org/wiki/PID_controller#Alternative_nomenclature_and_forms) equation (=*K*<sub>p</sub> *T*<sub>d</sub>) | `963413` |
-| `heaterfreq_Hz` | PWM frequency in Hz | `16384` |
-| `displayupdate_Hz` | number of times per second the controls are checked | `5` |
-| `lookback_points` | number of measurements points used in autotune to find peaks or troughs | `60` |
-| `tempoffset_C` | number of degrees to add on to reading from BME280 | `0.0` |
+| `outmin` | minimum PWM output for heater control | `0` |
 | `pressureoffset_hPa` | number of hPa to add to reading from BME280 | `0.0` |
 | `rhoffset_pct` | number of percentage points to add to reading from BME280 | `0.0` |
+| `sampletime_s` | seconds between BME280 measurements | `1.0` |
+| `scl_pin` | I2C clock GPIO | `5` |
+| `sda_pin` | I2C data GPIO | `4` |
+| `setpoint_C` | setpoint temperature in °C | `37.0` |
+| `smoothingalpha` | [Exponential smoothing factor](https://en.wikipedia.org/wiki/Exponential_smoothing) 0 < &alpha; ≤ 1 | `0.7` |
+| `tempbar_frac` | fraction of screen width where vertical setpoint bar appears on temperature line | `0.6` |
+| `tempoffset_C` | number of degrees to add on to reading from BME280 | `0.0` |
 | `tuningrule` | set of empirical parameters to convert amplitude and period of tuning into PID gain parameters | `"ziegler-nichols"` |
-| `noiseband_C` | number of degrees Celsius overshoot before heater state changes in autotune | 0.5 |
 
 ## Using the device
 
